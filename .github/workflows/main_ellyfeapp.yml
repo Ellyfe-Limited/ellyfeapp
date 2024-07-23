@@ -7,7 +7,7 @@ name: Build and deploy Python app to Azure Web App - ellyfeapp
 on:
   push:
     branches:
-      - main
+      - main  # or V3 if you're deploying from that branch
   workflow_dispatch:
 
 jobs:
@@ -59,11 +59,10 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'ellyfeapp'
+          app-name: 'ellyfeapp'  # Your app name
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_57F854BC1072458AAC76F71BE32F97B2 }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Ensure this matches the secret name in your GitHub repository
