@@ -35,8 +35,8 @@ def index():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     user_data = request.json
-    age = float(user_data['age'])
-    height = float(user_data['height'])
+    age = user_data['age']
+    height = user_data['height']
     weight = float(user_data['weight'])
     gender = user_data['gender']
     user_tbw = float(user_data['tbw'])
@@ -70,7 +70,7 @@ def export():
     df.to_excel(writer, index=False, sheet_name='HydrationData')
     writer.close()
     output.seek(0)
-    return send_file(output, attachment_filename='hydration_data.xlsx', as_attachment=True)
+    return send_file(output, download_name='hydration_data.xlsx', as_attachment=True)
 
 
 if __name__ == '__main__':
